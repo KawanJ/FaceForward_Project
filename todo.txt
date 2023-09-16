@@ -1,4 +1,13 @@
 Pending:-
-1> Making the Facial Recognition Work
-2> Making the Travel_History Table, Connect it with User Table via Foreign Key, Make API to Insert & View History of one user
-3> Adding Travel_History Component, Connecting it via the API and Making Good HTML and CSS Desgin for this component
+1> Making the Facial Recognition Work (Omkar)
+2> Making the Travel_History Table, Connect it with User Table via Foreign Key, Make API to Insert & View History of one user (Kawan)
+   - User Backend (Done!)
+3> Adding Travel_History Component, Connecting it via the API and Making Good HTML and CSS Desgin for this component (Neomi)
+
+
+
+
+
+Imp Commands:
+Set-ExecutionPolicy Unrestricted -Scope Process
+.venv\Scripts\activate
