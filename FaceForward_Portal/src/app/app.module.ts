@@ -1,16 +1,16 @@
-import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
+//Extra Libraries Used
+import { NgModule } from '@angular/core'; //Default Library
+import { BrowserModule } from '@angular/platform-browser'; //Default Library
+import { HttpClientModule } from '@angular/common/http'; //Library for calling API
+import { FormsModule } from '@angular/forms'; //Library for using forms in HTML
 
+//Components Below
 import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import { TempComponentComponent } from './temp-component/temp-component.component';
+import { AppComponent } from './app.component'; //Default Component
 
 @NgModule({
   declarations: [
-    AppComponent,
-    TempComponentComponent
+    AppComponent
   ],
   imports: [
     BrowserModule,
