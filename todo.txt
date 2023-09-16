@@ -1,7 +1,13 @@
 Pending:-
 1> Making the Facial Recognition Work (Omkar)
+
 2> Making the Travel_History Table, Connect it with User Table via Foreign Key, Make API to Insert & View History of one user (Kawan)
-   - User Backend (Done!)
+   ✓ User Backend
+   X Create USER API to return specific user based on Passport ID
+   X Create API Documentations
+   X Implement Travel History Logic in Backend
+   X Figure out how to store photo in Backend
+
 3> Adding Travel_History Component, Connecting it via the API and Making Good HTML and CSS Desgin for this component (Neomi)
 
 
