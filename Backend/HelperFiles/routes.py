@@ -1,5 +1,6 @@
 from flask import request, jsonify
 from flask_cors import CORS 
+import asyncio
 from HelperFiles import flaskApp
 from HelperFiles.models import User
 
@@ -41,7 +42,10 @@ def create_new_user():
         if passport_no in existing_passports:
             return jsonify({'error': 'Passport No. already exists'}), 400
 
-        # If all good, Create user and successfull message
+        # If all good, Add extra fields and Create user and successfull message
+        data['Travel_History'] = []
+        data['Face'] = "Empty" #This will Change
+
         user.create_user(data)
         return jsonify({'message': 'User added successfully'}), 200
 
@@ -51,11 +55,11 @@ def create_new_user():
 
 
 # API to get all the users
-@flaskApp.route('/view_users', methods=['GET'])
-def get_all_users():
+@flaskApp.route('/user', methods=['GET'])
+async def get_all_users():
     try:
         user = User()
-        user_data = user.get_user()
+        user_data = await asyncio.to_thread(user.get_user, request.args.get('id'))
         return jsonify({'users': list(user_data)})
 
     except Exception as e:
