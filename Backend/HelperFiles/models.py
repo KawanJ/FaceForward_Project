@@ -14,6 +14,13 @@ User Table:-
  - Date_of_Issue
  - Date_of_Expiration
  - Issuing_Authority
+ - Travel_History
+   [
+     - Airport
+     - Date
+     - Time
+   ]
+ - Face
 """
 
 class User:
@@ -23,12 +30,18 @@ class User:
         user_collection.insert_one(user_data) 
     
     # Method to retrieve all users
-    def get_user(self):
+    def get_user(self, user_id):
         user_collection = mongo.db.users
-        user_data = user_collection.find({}, {'_id': 0}) #find({}, {'_id': 0}) -> {}: define extra criteria here, {'_id': 0}: exlude "_id" field
+        query = {} 
+
+        # If user_id is provided, add it to the query
+        if user_id:
+            query['Passport_No'] = user_id
+
+        user_data = user_collection.find(query, {'_id': 0})
         return user_data
     
-    # Method to get a lost of all existing Passport IDs
+    # Method to get a list of all existing Passport IDs
     def get_passport_ids(self):
         user_collection = mongo.db.users
         passport_ids = user_collection.distinct("Passport_No")
