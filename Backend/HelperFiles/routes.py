@@ -8,7 +8,7 @@ CORS(flaskApp)
 
 # API to create a new user
 @flaskApp.route('/add_user', methods=['POST'])
-def create_new_user():
+def create_user():
     try:
         # Check if the request is empty
         if not request.data:
@@ -56,11 +56,69 @@ def create_new_user():
 
 # API to get all the users
 @flaskApp.route('/user', methods=['GET'])
-async def get_all_users():
+async def get_user():
     try:
         user = User()
         user_data = await asyncio.to_thread(user.get_user, request.args.get('id'))
-        return jsonify({'users': list(user_data)})
+        
+        # Check if Passport ID doesn't exist
+        if user_data==[]:
+            return jsonify({'error': 'Invalid Passport ID'}), 400
+
+        return jsonify({'users': user_data})
+
+    except Exception as e:
+        # Handle any exceptions that may occur
+        return jsonify({'error': str(e)}), 500
+    
+# API to add travel history
+@flaskApp.route('/add_travel_history', methods=['POST'])
+def add_travel_history():
+    try:
+        data = request.get_json()
+        passport_no = data["Passport_No"]
+        airport = data["Airport"]
+        date = data["Date"]
+        time = data["Time"]
+
+        # Check if the JSON request contains the required fields
+        if not all([airport, date, time, passport_no]):
+            return jsonify({"error": "Missing required fields"}), 400
+
+        # Create the travel history entry
+        travel_entry = {
+            "Airport": airport,
+            "Date": date,
+            "Time": time
+        }
+
+        # Append the travel history entry to the user's record
+        user = User()
+        user.update_travel_history(passport_no, travel_entry)
+
+        return jsonify({"message": "Travel history entry added successfully"}), 200
+    
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+    
+
+# API to get User Travel History
+@flaskApp.route('/travel_history', methods=['GET'])
+async def get_travel_history():
+    try:
+        if request.args.get('id') == None:
+            return jsonify({"Message": "Passport ID missing!"}), 400
+
+        # Get The Results
+        user = User()
+        user_data = await asyncio.to_thread(user.get_travel_history, request.args.get('id'))
+        print(user_data)
+
+        # Check if Passport ID doesn't exist
+        if user_data==[]:
+            return jsonify({'error': 'Invalid Passport ID'}), 400
+        
+        return user_data
 
     except Exception as e:
         # Handle any exceptions that may occur

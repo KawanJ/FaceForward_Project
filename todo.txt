@@ -4,7 +4,7 @@ Pending:-
 2> Making the Travel_History Table, Connect it with User Table via Foreign Key, Make API to Insert & View History of one user (Kawan)
    ✓ User Backend
    ✓ Create USER API to return specific user based on Passport ID
-   X Implement Travel History Logic in Backend
+   ✓ Implement Travel History Logic in Backend
    X Create API Documentations
    X Figure out how to store photo in Backend
 
