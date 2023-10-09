@@ -6,9 +6,9 @@ from HelperFiles.models import User
 
 CORS(flaskApp)
 
-# API to create a new user
+# API to create a new user (backend)
 @flaskApp.route('/add_user', methods=['POST'])
-def create_user():
+def create_user(): 
     try:
         # Check if the request is empty
         if not request.data:

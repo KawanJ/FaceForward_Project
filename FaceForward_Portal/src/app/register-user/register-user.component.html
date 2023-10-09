@@ -1,0 +1,19 @@
+<p>register-user works!</p>
+<body>
+<!--                   binding it with   passport number in user       -->
+    <input type="text" [(ngModel)] = "user.Passport_No"> Passport Number 
+    <input type="text" [(ngModel)] = "user.Type"> Type of Passport
+    <input type="text" [(ngModel)] = "user.Country_Code"> Country Code 
+    <input type="text" [(ngModel)] = "user.Given_Name"> Given Name 
+    <input type="text" [(ngModel)] = "user.Surname"> Surname
+    <input type="text" [(ngModel)] = "user.Sex"> Sex
+    <input type="text" [(ngModel)] = "user.Nationality"> Nationality
+    <input type="text" [(ngModel)] = "user.Date_of_Birth"> Date of Birth 
+    <input type="text" [(ngModel)] = "user.Place_of_Birth"> Place of Birth
+    <input type="text" [(ngModel)] = "user.Date_of_Issue"> Date of Issue 
+    <input type="text" [(ngModel)] = "user.Date_of_Expiration"> Date of Expiration
+    <input type="text" [(ngModel)] = "user.Issuing_Authority"> Issuing Authority
+
+    <button  (click) = "register()"> Register </button>
+
+</body>

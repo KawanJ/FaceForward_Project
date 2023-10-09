@@ -6,11 +6,17 @@ import { FormsModule } from '@angular/forms'; //Library for using forms in HTML
 
 //Components Below
 import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component'; //Default Component
+import { AppComponent } from './app.component';
+import { RegisterUserComponent } from './register-user/register-user.component';
+import { ImmigrationCheckinComponent } from './immigration-checkin/immigration-checkin.component';
+import { ImmigrationRecordsComponent } from './immigration-records/immigration-records.component'; //Default Component
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    RegisterUserComponent,
+    ImmigrationCheckinComponent,
+    ImmigrationRecordsComponent
   ],
   imports: [
     BrowserModule,
