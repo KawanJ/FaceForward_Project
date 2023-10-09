@@ -41,6 +41,15 @@ class User:
         user_data = user_collection.find(query, {'_id': 0, "Travel_History": 0})
         return list(user_data)
     
+    # Method to retrieve all users
+    def get_user_face(self, user_id):
+        user_collection = mongo.db.users
+        query = {} 
+        query['Passport_No'] = user_id
+
+        user_data = user_collection.find(query, {'_id': 0, "Face": 1})
+        return list(user_data)
+    
     # Method to get a list of all existing Passport IDs
     def get_passport_ids(self):
         user_collection = mongo.db.users
