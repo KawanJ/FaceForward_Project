@@ -1,22 +1,31 @@
 from flask import request, jsonify
 from flask_cors import CORS 
+import json
 import asyncio
+import bson
+import base64
+from io import BytesIO
 from HelperFiles import flaskApp
 from HelperFiles.models import User
 
+#Cross-origin resource sharing (CORS) is required for sharing resources between multiple origins. In this case Backend <-> Frontend
 CORS(flaskApp)
 
-# API to create a new user
+# Register User API
+
 @flaskApp.route('/add_user', methods=['POST'])
-def create_user():
+def create_user(): 
     try:
         # Check if the request is empty
-        if not request.data:
+        if 'data' not in request.form:
             return jsonify({'error': 'Request is empty'}), 400
+        
+        if 'photo' not in request.files:
+            return jsonify({'error': 'Photo missing'}), 400
 
-        # Check if the JSON request contains the required fields
+        # Defining the required fields
         required_fields = [
-            'Passport_No',
+            'Passport_No', 
             'Type',
             'Country_Code',
             'Given_Name',
@@ -29,10 +38,20 @@ def create_user():
             'Date_of_Expiration',
             'Issuing_Authority'
         ]
-        data = request.json
+
+        # Retrieving the Data from Request
+        data = json.loads(request.form['data'])
+        picbinary = bson.Binary(request.files['photo'].read())
+
+        # Check if the JSON request contains the required fields
         for field in required_fields:
             if field not in data:
                 return jsonify({'error': f'Missing field: {field}'}), 400
+            
+        # Check if any field is NULL
+        for k,v in data.items():
+            if v == None:
+                return jsonify({'error': f'Null field: {k}'}), 400
 
         user = User()  
 
@@ -44,7 +63,7 @@ def create_user():
 
         # If all good, Add extra fields and Create user and successfull message
         data['Travel_History'] = []
-        data['Face'] = "Empty" #This will Change
+        data['Face'] = picbinary
 
         user.create_user(data)
         return jsonify({'message': 'User added successfully'}), 200
@@ -55,6 +74,7 @@ def create_user():
 
 
 # API to get all the users
+# The Face photo return will be in Base64 format
 @flaskApp.route('/user', methods=['GET'])
 async def get_user():
     try:
@@ -64,8 +84,36 @@ async def get_user():
         # Check if Passport ID doesn't exist
         if user_data==[]:
             return jsonify({'error': 'Invalid Passport ID'}), 400
+        
+        # Convert BSON Object to Base64 to return as JSON
+        for i in range(len(user_data)):
+            user_data[i]['Face'] = base64.b64encode(user_data[i]['Face']).decode('utf-8')
 
         return jsonify({'users': user_data})
+
+    except Exception as e:
+        # Handle any exceptions that may occur
+        return jsonify({'error': str(e)}), 500
+    
+# The Face photo return will be in Base64 format
+@flaskApp.route('/user_photo', methods=['GET'])
+async def get_user_face():
+    try:
+        # Check if user ID is provided
+        if not request.args.get('id'):
+            return jsonify({'error': 'Missing Passport ID'}), 400
+        
+        user = User()
+        user_data = await asyncio.to_thread(user.get_user_face, request.args.get('id'))
+        
+        # Check if Passport ID doesn't exist
+        if user_data==[]:
+            return jsonify({'error': 'Invalid Passport ID'}), 400
+        
+        # Convert BSON Object to Base64 to return as JSON
+        userPhoto = base64.b64encode(user_data[0]['Face']).decode('utf-8')
+
+        return jsonify({'Face': userPhoto})
 
     except Exception as e:
         # Handle any exceptions that may occur
