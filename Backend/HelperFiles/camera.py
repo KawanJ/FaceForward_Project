@@ -2,18 +2,20 @@ import cv2
 import time
 import tensorflow
 import numpy as np
+import base64
+from io import BytesIO
 from PIL import Image
 from keras_facenet import FaceNet
 from sklearn.metrics.pairwise import cosine_similarity
 
-def detect_matching_face(reference_face_path):
+def detect_matching_face(encoded_photo):
     embedder = FaceNet()
     model = tensorflow.keras.applications.ResNet50(weights='imagenet')
     face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
 
     # Load the reference image
     # reference_face = Image.open(reference_face_path).resize((224, 224))
-    reference_face = Image.open(reference_face_path)
+    reference_face = Image.open(BytesIO(base64.b64decode(encoded_photo)))
     reference_array = np.asarray(reference_face).astype('float32')
     # mean, std = reference_array.mean(), reference_array.std()
     # reference_array = (reference_array - mean) / std
@@ -71,6 +73,3 @@ def detect_matching_face(reference_face_path):
     cap.release()
     cv2.destroyAllWindows()
     return False
-
-result = detect_matching_face('D:\Projects\FaceForwardProject\FaceForward_Project\Backend\HelperFiles\Kanishk.jpeg')
-print(result)
