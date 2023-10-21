@@ -121,7 +121,7 @@ async def get_user_face():
         return jsonify({'error': str(e)}), 500
     
 # API To Verify USER for Immigration
-@flaskApp.route('/verify_user', methods=['POST'])
+@flaskApp.route('/verify_user', methods=['GET'])
 async def user_verification():
     try:
         # Check if user ID is provided
@@ -141,7 +141,7 @@ async def user_verification():
         # Call the Verification Function
         verified = detect_matching_face(userPhoto)
 
-        return jsonify({'STatus': verified})
+        return jsonify({'status': verified})
 
     except Exception as e:
         # Handle any exceptions that may occur
