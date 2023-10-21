@@ -1,26 +1,17 @@
 import cv2
 import time
-import tensorflow
 import numpy as np
 import base64
 from io import BytesIO
 from PIL import Image
-from keras_facenet import FaceNet
+from HelperFiles import embedder
 from sklearn.metrics.pairwise import cosine_similarity
 
 def detect_matching_face(encoded_photo):
-    embedder = FaceNet()
-    model = tensorflow.keras.applications.ResNet50(weights='imagenet')
+    #Can Cache this into Database
     face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
-
-    # Load the reference image
-    # reference_face = Image.open(reference_face_path).resize((224, 224))
     reference_face = Image.open(BytesIO(base64.b64decode(encoded_photo)))
     reference_array = np.asarray(reference_face).astype('float32')
-    # mean, std = reference_array.mean(), reference_array.std()
-    # reference_array = (reference_array - mean) / std
-    # reference_embedding = model.predict(np.expand_dims(reference_array, axis=0))
-    # reference_embedding = reference_embedding.reshape(1, -1)
     reference_embedding = embedder.embeddings([reference_array])
 
     # Initialize the camera
@@ -47,13 +38,8 @@ def detect_matching_face(encoded_photo):
         for (x, y, w, h) in faces:
             cv2.rectangle(frame, (x+10, y), (x + w-10, y + h), (0, 255, 0), 2)
             roi_gray = np.asarray(frame[y:y + h, x:x + w])
-            # image = Image.fromarray(roi_gray).resize((224, 224))
             image = Image.fromarray(roi_gray)
             face_array = np.asarray(image).astype('float32')
-            # mean, std = face_array.mean(), face_array.std()
-            # face_array = (face_array - mean) / std
-            # face_embedding = model.predict(np.expand_dims(face_array, axis=0))
-            # face_embedding = face_embedding.reshape(1, -1)
             face_embedding = embedder.embeddings([face_array])
 
             print(cosine_similarity(reference_embedding, face_embedding)[0][0])
