@@ -25,11 +25,17 @@ export class RegisterUserComponent {
     Issuing_Authority: null
   };
 
+  image: File = {} as File
+
+  onFileSelected(event: any): void {
+    this.image = event.target.files[0];
+  }
+
   async register()
   {
     try{
                       //to use await the function should be asyn (asynchronous)
-      const response = await this.userService.registerUser(this.user).toPromise()
+      const response = await this.userService.registerUser(this.user, this.image).toPromise()
                                                                       //prmosises to get the data
                             //iss service se data bhejega backend mein api and result message aayega (successful/error)
       console.log(response) //print the response (console.log is print in javascript)
