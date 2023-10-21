@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'app-immigration-records',
@@ -7,4 +8,20 @@ import { Component } from '@angular/core';
 })
 export class ImmigrationRecordsComponent {
 
+  constructor(private userService:UserService){  }
+
+  id = ""
+  user = null
+
+  async getUserData()
+  {
+    try{
+      const res = await this.userService.getUser(this.id).toPromise()
+      this.user = res.users[0]
+      console.log(this.user)
+    }
+    catch (error){
+      console.log(error)
+    }
+  }
 }
