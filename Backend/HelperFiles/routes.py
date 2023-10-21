@@ -7,6 +7,7 @@ import base64
 from io import BytesIO
 from HelperFiles import flaskApp
 from HelperFiles.models import User
+from HelperFiles.camera import detect_matching_face
 
 #Cross-origin resource sharing (CORS) is required for sharing resources between multiple origins. In this case Backend <-> Frontend
 CORS(flaskApp)
@@ -104,16 +105,43 @@ async def get_user_face():
             return jsonify({'error': 'Missing Passport ID'}), 400
         
         user = User()
-        user_data = await asyncio.to_thread(user.get_user_face, request.args.get('id'))
+        user_face = await asyncio.to_thread(user.get_user_face, request.args.get('id'))
         
         # Check if Passport ID doesn't exist
-        if user_data==[]:
+        if user_face==[]:
             return jsonify({'error': 'Invalid Passport ID'}), 400
         
         # Convert BSON Object to Base64 to return as JSON
-        userPhoto = base64.b64encode(user_data[0]['Face']).decode('utf-8')
+        userPhoto = base64.b64encode(user_face[0]['Face']).decode('utf-8')
 
         return jsonify({'Face': userPhoto})
+
+    except Exception as e:
+        # Handle any exceptions that may occur
+        return jsonify({'error': str(e)}), 500
+    
+# API To Verify USER for Immigration
+@flaskApp.route('/verify_user', methods=['POST'])
+async def user_verification():
+    try:
+        # Check if user ID is provided
+        if not request.args.get('id'):
+            return jsonify({'error': 'Missing Passport ID'}), 400
+        
+        user = User()
+        user_face = await asyncio.to_thread(user.get_user_face, request.args.get('id'))
+        
+        # Check if Passport ID doesn't exist
+        if user_face==[]:
+            return jsonify({'error': 'Invalid Passport ID'}), 400
+        
+        # Convert BSON Object to Base64 to return as JSON
+        userPhoto = base64.b64encode(user_face[0]['Face']).decode('utf-8')
+
+        # Call the Verification Function
+        verified = detect_matching_face(userPhoto)
+
+        return jsonify({'STatus': verified})
 
     except Exception as e:
         # Handle any exceptions that may occur
