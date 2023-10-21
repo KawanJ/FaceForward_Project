@@ -7,7 +7,7 @@ import base64
 from io import BytesIO
 from HelperFiles import flaskApp
 from HelperFiles.models import User
-from HelperFiles.camera import detect_matching_face
+from HelperFiles.recognition_module import detect_matching_face
 
 #Cross-origin resource sharing (CORS) is required for sharing resources between multiple origins. In this case Backend <-> Frontend
 CORS(flaskApp)
