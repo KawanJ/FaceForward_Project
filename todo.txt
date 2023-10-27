@@ -15,3 +15,6 @@ Pending:-
 Imp Commands:
 Set-ExecutionPolicy Unrestricted -Scope Process
 .venv\Scripts\activate
+
+- Show final similarity instead similarity at each step by averaging it out
+- get more similarity indexes from minor project

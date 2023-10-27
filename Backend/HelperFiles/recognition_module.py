@@ -42,7 +42,7 @@ def detect_matching_face(encoded_photo):
             face_array = np.asarray(image).astype('float32')
             face_embedding = embedder.embeddings([face_array])
 
-            print(cosine_similarity(reference_embedding, face_embedding)[0][0])
+            #print(cosine_similarity(reference_embedding, face_embedding)[0][0])
             if(cosine_similarity(reference_embedding, face_embedding)[0][0] > 0.8):
                 cap.release()
                 cv2.destroyAllWindows()
