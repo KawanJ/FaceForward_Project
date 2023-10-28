@@ -69,7 +69,7 @@ class User:
     # Method to retrieve Travel History of a User
     def get_travel_history(self, user_id):
         user_collection = mongo.db.users
-        user_data = user_collection.find({"Passport_No" : user_id}, {"Travel_History": 1, '_id': 0})
+        user_data = user_collection.find({"Passport_No" : user_id}, {'_id': 0, "Travel_History": 1})
         user_data = list(user_data)
 
         # If user not found
@@ -77,4 +77,4 @@ class User:
             return []
         
         # Parsing the data in a suitable format
-        return user_data[0]["Travel_History"]
+        return user_data[0]

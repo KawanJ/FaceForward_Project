@@ -20,9 +20,6 @@ def create_user():
         # Check if the request is empty
         if 'data' not in request.form:
             return jsonify({'error': 'Request is empty'}), 400
-        
-        if 'photo' not in request.files:
-            return jsonify({'error': 'Photo missing'}), 400
 
         # Defining the required fields
         required_fields = [
@@ -42,7 +39,6 @@ def create_user():
 
         # Retrieving the Data from Request
         data = json.loads(request.form['data'])
-        picbinary = bson.Binary(request.files['photo'].read())
 
         # Check if the JSON request contains the required fields
         for field in required_fields:
@@ -51,8 +47,13 @@ def create_user():
             
         # Check if any field is NULL
         for k,v in data.items():
-            if v == None:
+            if v == None or v == "":
                 return jsonify({'error': f'Null field: {k}'}), 400
+            
+        if 'photo' not in request.files:
+            return jsonify({'error': 'Photo missing'}), 400
+        
+        picbinary = bson.Binary(request.files['photo'].read())
 
         user = User()  
 
@@ -188,7 +189,6 @@ async def get_travel_history():
         # Get The Results
         user = User()
         user_data = await asyncio.to_thread(user.get_travel_history, request.args.get('id'))
-        print(user_data)
 
         # Check if Passport ID doesn't exist
         if user_data==[]:

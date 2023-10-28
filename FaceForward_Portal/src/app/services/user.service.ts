@@ -9,7 +9,7 @@ import { HttpClient } from '@angular/common/http'; //library (class) for using h
 export class UserService {
 
   private registerUserAPI = "http://127.0.0.1:5000/add_user"
-  private getUserAPI = "http://127.0.0.1:5000/user?id="
+  private getUserAPI = "http://127.0.0.1:5000/travel_history?id="
   private verifyUserAPI = "http://127.0.0.1:5000/verify_user?id="
               
   constructor(private http:HttpClient) { } //importing HttpClient as http (instance of a class)
