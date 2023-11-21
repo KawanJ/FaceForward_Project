@@ -17,7 +17,7 @@ export class ImmigrationRecordsComponent {
   {
     try{
       const res = await this.userService.getUser(this.id).toPromise()
-      this.user = res.users[0]
+      this.user = res["Travel_History"]
       console.log(this.user)
     }
     catch (error){

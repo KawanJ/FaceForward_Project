@@ -28,7 +28,7 @@ def detect_matching_face(encoded_photo):
 
         # Camera Timer
         elapsed_time = time.time() - start_time
-        cv2.putText(frame, f'Time Remaining: {10 - int(elapsed_time)} seconds', (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
+        cv2.putText(frame, f'Time Remaining: {10 - int(elapsed_time)} seconds', (100, 30), cv2.FONT_HERSHEY_SIMPLEX, 1, (205, 105, 15), 2)
         if elapsed_time >= 10:
             cap.release()
             cv2.destroyAllWindows()
@@ -37,12 +37,10 @@ def detect_matching_face(encoded_photo):
         # Compare detected faces with the reference face
         for (x, y, w, h) in faces:
             cv2.rectangle(frame, (x+10, y), (x + w-10, y + h), (0, 255, 0), 2)
-            roi_gray = np.asarray(frame[y:y + h, x:x + w])
-            image = Image.fromarray(roi_gray)
-            face_array = np.asarray(image).astype('float32')
+            face_array = np.asarray(frame[y:y + h, x:x + w]).astype('float32')
             face_embedding = embedder.embeddings([face_array])
 
-            print(cosine_similarity(reference_embedding, face_embedding)[0][0])
+            #print(cosine_similarity(reference_embedding, face_embedding)[0][0])
             if(cosine_similarity(reference_embedding, face_embedding)[0][0] > 0.8):
                 cap.release()
                 cv2.destroyAllWindows()
@@ -52,7 +50,7 @@ def detect_matching_face(encoded_photo):
         cv2.imshow('Face Recognition', frame)
 
         # Break the loop if 'q' is pressed
-        if cv2.waitKey(1) & 0xFF == ord('q'):
+        if cv2.waitKey(1) == ord('q'):
             break
 
     # Release the camera and close all windows
