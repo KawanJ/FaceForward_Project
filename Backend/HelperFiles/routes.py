@@ -66,6 +66,7 @@ def create_user():
         # If all good, Add extra fields and Create user and successfull message
         data['Travel_History'] = []
         data['Face'] = picbinary
+        data['isVerified'] = False
 
         user.create_user(data)
         return jsonify({'message': 'User added successfully'}), 200
@@ -75,7 +76,7 @@ def create_user():
         return jsonify({'error': str(e)}), 500
 
 
-# API to get all the users
+# API to get all the verified users
 # The Face photo return will be in Base64 format
 @flaskApp.route('/user', methods=['GET'])
 async def get_user():
@@ -86,6 +87,24 @@ async def get_user():
         # Check if Passport ID doesn't exist
         if user_data==[]:
             return jsonify({'error': 'Invalid Passport ID'}), 400
+        
+        # Convert BSON Object to Base64 to return as JSON
+        for i in range(len(user_data)):
+            user_data[i]['Face'] = base64.b64encode(user_data[i]['Face']).decode('utf-8')
+
+        return jsonify({'users': user_data})
+
+    except Exception as e:
+        # Handle any exceptions that may occur
+        return jsonify({'error': str(e)}), 500
+    
+# API to get all the unverified users
+# The Face photo return will be in Base64 format
+@flaskApp.route('/pending_requests', methods=['GET'])
+async def get_unverified_user():
+    try:
+        user = User()
+        user_data = await asyncio.to_thread(user.get_unverified_user)
         
         # Convert BSON Object to Base64 to return as JSON
         for i in range(len(user_data)):
@@ -121,6 +140,50 @@ async def get_user_face():
         # Handle any exceptions that may occur
         return jsonify({'error': str(e)}), 500
     
+# API to reject and delete user regestration request based on Passport ID
+@flaskApp.route('/reject_registration', methods=['DELETE'])
+async def reject_user():
+    try:
+        passport_id = request.args.get('id')
+
+        # Check if Passport ID is provided
+        if not passport_id:
+            return jsonify({'error': 'Passport ID is required for deletion.'}), 400
+        
+        user = User()
+        result = await asyncio.to_thread(user.delete_user, passport_id)
+
+        if result == 0:
+            return jsonify({'message': 'No such User found'}), 400
+        
+        return jsonify({'message': 'Request Rejected successfully'}), 200
+
+    except Exception as e:
+        # Handle any exceptions that may occur
+        return jsonify({'error': str(e)}), 500
+    
+# API to accept user regestration request based on Passport ID
+@flaskApp.route('/accept_registration', methods=['POST'])
+async def accept_user():
+    try:
+        passport_id = request.args.get('id')
+
+        # Check if Passport ID is provided
+        if not passport_id:
+            return jsonify({'error': 'Passport ID is required for deletion.'}), 400
+        
+        user = User()
+        result = await asyncio.to_thread(user.verify_user, passport_id)
+
+        if result == 0:
+            return jsonify({'message': 'No such User found'}), 400
+        
+        return jsonify({'message': 'Request Accepted successfully'}), 200
+
+    except Exception as e:
+        # Handle any exceptions that may occur
+        return jsonify({'error': str(e)}), 500
+    
 # API To Verify USER for Immigration
 @flaskApp.route('/verify_user', methods=['GET'])
 async def user_verification():
@@ -150,7 +213,7 @@ async def user_verification():
     
 # API to add travel history
 @flaskApp.route('/add_travel_history', methods=['POST'])
-def add_travel_history():
+async def add_travel_history():
     try:
         data = request.get_json()
         passport_no = data["Passport_No"]
@@ -169,8 +232,14 @@ def add_travel_history():
             "Time": time
         }
 
-        # Append the travel history entry to the user's record
         user = User()
+        user_data = await asyncio.to_thread(user.get_user, passport_no)
+        
+        # Check if Passport ID doesn't exist
+        if user_data==[]:
+            return jsonify({'error': 'Invalid Passport ID'}), 400
+        
+        # Append the travel history entry to the user's record
         user.update_travel_history(passport_no, travel_entry)
 
         return jsonify({"message": "Travel history entry added successfully"}), 200
