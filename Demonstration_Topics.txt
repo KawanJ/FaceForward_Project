@@ -1,0 +1,6 @@
+Getting a Repo:
+  - git innit
+  - git clone
+
+Basics:
+  - Get Status

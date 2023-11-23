@@ -6,7 +6,7 @@ Pending:-
    ✓ Create USER API to return specific user based on Passport ID
    ✓ Implement Travel History Logic in Backend
    X Create API Documentations
-   X Figure out how to store photo in Backend
+   ✓ Figure out how to store photo in Backend
 
 3> Adding Travel_History Component, Connecting it via the API and Making Good HTML and CSS Desgin for this component (Neomi)
 
