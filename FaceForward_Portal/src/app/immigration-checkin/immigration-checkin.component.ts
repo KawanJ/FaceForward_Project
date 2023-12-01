@@ -4,7 +4,7 @@ import { ToastrService } from 'ngx-toastr';
 import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
-  encapsulation: ViewEncapsulation.None,
+  // encapsulation: ViewEncapsulation.None,
   selector: 'app-immigration-checkin',
   templateUrl: './immigration-checkin.component.html',
   styleUrls: ['./immigration-checkin.component.css']

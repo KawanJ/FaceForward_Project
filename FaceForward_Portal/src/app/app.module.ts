@@ -12,7 +12,9 @@ import { AppComponent } from './app.component';
 import { RegisterUserComponent } from './register-user/register-user.component';
 import { ImmigrationCheckinComponent } from './immigration-checkin/immigration-checkin.component';
 import { ImmigrationRecordsComponent } from './immigration-records/immigration-records.component';
-import { RegisterRequestsComponent } from './register-requests/register-requests.component'; //Default Component
+import { RegisterRequestsComponent } from './register-requests/register-requests.component';
+import { NavBarComponent } from './nav-bar/nav-bar.component';
+import { HomeComponent } from './home/home.component'; //Default Component
 
 
 @NgModule({
@@ -21,7 +23,9 @@ import { RegisterRequestsComponent } from './register-requests/register-requests
     RegisterUserComponent,
     ImmigrationCheckinComponent,
     ImmigrationRecordsComponent,
-    RegisterRequestsComponent
+    RegisterRequestsComponent,
+    NavBarComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,

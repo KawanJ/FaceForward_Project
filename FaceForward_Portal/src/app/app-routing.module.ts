@@ -4,6 +4,7 @@ import { RegisterUserComponent } from './register-user/register-user.component';
 import { ImmigrationCheckinComponent } from './immigration-checkin/immigration-checkin.component';
 import { ImmigrationRecordsComponent } from './immigration-records/immigration-records.component';
 import { RegisterRequestsComponent } from './register-requests/register-requests.component';
+import { HomeComponent } from './home/home.component';
 
 const routes: Routes = [
   {
@@ -25,7 +26,13 @@ const routes: Routes = [
     path: 'immigration_records',
     component: ImmigrationRecordsComponent,
     title: 'Immigration Records'
-  }
+  },
+  {
+    path: 'home',
+    component: HomeComponent,
+    title: 'Home Page'
+  },
+  { path: '**', redirectTo: '/home' }
 ];
 
 @NgModule({
