@@ -12,6 +12,7 @@ export class UserService {
   private getUserAPI = "http://127.0.0.1:5000/travel_history?id="
   private getUnverifiedUserAPI = "http://127.0.0.1:5000/pending_requests"
   private verifyUserAPI = "http://127.0.0.1:5000/verify_user?id="
+  private addTravelHistoryAPI = "http://127.0.0.1:5000/add_travel_history"
               
   constructor(private http:HttpClient) { } //importing HttpClient as http (instance of a class)
 
@@ -35,4 +36,11 @@ export class UserService {
     return this.http.get<any>(this.verifyUserAPI + id);
   }
 
+  addUserTravelHistory(id:string){
+    const data = {
+      Passport_No: id,
+      Airport: "AMD"
+    };
+    return this.http.post<any>(this.addTravelHistoryAPI, data);
+  }
 }

@@ -29,10 +29,15 @@ export class ImmigrationCheckinComponent {
   
       // Set alert color based on verification status
       this.alertColor = this.verified ? 'green' : '#f28080';
+
+      // Update Travel History
+      if(this.verified == true) {
+        await this.userService.addUserTravelHistory(this.id).toPromise();
+      }
   
       // Show the alert for 5 seconds
       this.showAlert = true;
-      setTimeout(() => {
+      await setTimeout(() => {
         this.showAlert = false;
         this.alertColor = "transparent"; // Reset alert color after fade-out
       }, 5000);
