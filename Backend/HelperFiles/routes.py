@@ -8,6 +8,7 @@ from io import BytesIO
 from HelperFiles import flaskApp
 from HelperFiles.models import User
 from HelperFiles.recognition_module import detect_matching_face
+from datetime import datetime
 
 #Cross-origin resource sharing (CORS) is required for sharing resources between multiple origins. In this case Backend <-> Frontend
 CORS(flaskApp)
@@ -218,18 +219,17 @@ async def add_travel_history():
         data = request.get_json()
         passport_no = data["Passport_No"]
         airport = data["Airport"]
-        date = data["Date"]
-        time = data["Time"]
 
         # Check if the JSON request contains the required fields
-        if not all([airport, date, time, passport_no]):
+        if not all([airport, passport_no]):
             return jsonify({"error": "Missing required fields"}), 400
 
         # Create the travel history entry
+        current_datetime = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         travel_entry = {
             "Airport": airport,
-            "Date": date,
-            "Time": time
+            "Date": current_datetime.split()[0],
+            "Time": current_datetime.split()[1]
         }
 
         user = User()

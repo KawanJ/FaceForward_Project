@@ -1,0 +1,88 @@
+body {
+    margin: 0;
+    height: 93.3vh;
+    overflow: hidden;
+}
+
+.content {
+    margin: 0;
+    height: 93.3vh;
+    /* width: 100vw; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.5s ease-in-out;
+}
+  
+.container {
+    background: linear-gradient(320deg, #2c82bf, rgb(180, 209, 229));
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+    max-width: 400px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.grayed-out {
+    opacity: 0.5; 
+    pointer-events: none; 
+}
+  
+input {
+    width: calc(100% - 22px);
+    margin-bottom: 15px;
+    padding: 10px;
+    border: 1px solid #ccc; 
+    border-radius: 5px; 
+    font-size: 14px;
+}
+  
+button {
+    background-color: #5bce5d;
+    width: 100%;
+    border-radius: 10px;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    padding: 12px; 
+    font-size: 16px;
+}
+
+button:hover {
+    background-color: #4caf50; /* Darker color on hover */
+}
+
+button:active {
+    background-color: #419e41; /* Even darker color on click */
+}
+
+.alert-image {
+    width: 100%;
+    height: 100%;
+}
+
+@keyframes scale {
+    0% {
+      transform: scale(0.001); /* Start at 1% size */
+    }
+    50% {
+      transform: scale(1); /* Scale to 100% size in the first 2.5 seconds */
+    }
+    100% {
+      transform: scale(0.001); /* Scale back to 1% size in the next 2.5 seconds */
+    }
+}
+  
+.alert-image {
+    animation: scale 5s ease-in-out; /* Animation over 5 seconds with ease-in-out timing function */
+}
+  
+/* Define states for the animation */
+.visible {
+    opacity: 1;
+}
+ 
+.hidden {
+    opacity: 0;
+}

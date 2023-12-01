@@ -1,0 +1,36 @@
+<table>
+    <thead>
+      <tr>
+        <th>Passport No</th>
+        <th>Type</th>
+        <th>Country Code</th>
+        <th>Given Name</th>
+        <th>Surname</th>
+        <th>Sex</th>
+        <th>Nationality</th>
+        <th>Date of Birth</th>
+        <th>Place of Birth</th>
+        <th>Date of Issue</th>
+        <th>Date of Expiration</th>
+        <th>Issuing Authority</th>
+        <th>Photo</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let user of users">
+        <td>{{ user.Passport_No }}</td>
+        <td>{{ user.Type }}</td>
+        <td>{{ user.Country_Code }}</td>
+        <td>{{ user.Given_Name }}</td>
+        <td>{{ user.Surname }}</td>
+        <td>{{ user.Sex }}</td>
+        <td>{{ user.Nationality }}</td>
+        <td>{{ user.Date_of_Birth }}</td>
+        <td>{{ user.Place_of_Birth }}</td>
+        <td>{{ user.Date_of_Issue }}</td>
+        <td>{{ user.Date_of_Expiration }}</td>
+        <td>{{ user.Issuing_Authority }}</td>
+        <td><img [src]="'data:image/png;base64,' + user.Face" alt="User Photo" width="100" height="100"></td>
+      </tr>
+    </tbody>
+  </table>

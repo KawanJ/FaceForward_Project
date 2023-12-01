@@ -3,26 +3,37 @@ import { NgModule } from '@angular/core'; //Default Library
 import { BrowserModule } from '@angular/platform-browser'; //Default Library
 import { HttpClientModule } from '@angular/common/http'; //Library for calling API
 import { FormsModule } from '@angular/forms'; //Library for using forms in HTML
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr';
 
 //Components Below
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { RegisterUserComponent } from './register-user/register-user.component';
 import { ImmigrationCheckinComponent } from './immigration-checkin/immigration-checkin.component';
-import { ImmigrationRecordsComponent } from './immigration-records/immigration-records.component'; //Default Component
+import { ImmigrationRecordsComponent } from './immigration-records/immigration-records.component';
+import { RegisterRequestsComponent } from './register-requests/register-requests.component';
+import { NavBarComponent } from './nav-bar/nav-bar.component';
+import { HomeComponent } from './home/home.component'; //Default Component
+
 
 @NgModule({
   declarations: [
     AppComponent,
     RegisterUserComponent,
     ImmigrationCheckinComponent,
-    ImmigrationRecordsComponent
+    ImmigrationRecordsComponent,
+    RegisterRequestsComponent,
+    NavBarComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    BrowserAnimationsModule,
+    ToastrModule.forRoot(),
   ],
   providers: [],
   bootstrap: [AppComponent]
