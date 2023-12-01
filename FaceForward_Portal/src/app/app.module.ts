@@ -9,14 +9,16 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { RegisterUserComponent } from './register-user/register-user.component';
 import { ImmigrationCheckinComponent } from './immigration-checkin/immigration-checkin.component';
-import { ImmigrationRecordsComponent } from './immigration-records/immigration-records.component'; //Default Component
+import { ImmigrationRecordsComponent } from './immigration-records/immigration-records.component';
+import { RegisterRequestsComponent } from './register-requests/register-requests.component'; //Default Component
 
 @NgModule({
   declarations: [
     AppComponent,
     RegisterUserComponent,
     ImmigrationCheckinComponent,
-    ImmigrationRecordsComponent
+    ImmigrationRecordsComponent,
+    RegisterRequestsComponent
   ],
   imports: [
     BrowserModule,

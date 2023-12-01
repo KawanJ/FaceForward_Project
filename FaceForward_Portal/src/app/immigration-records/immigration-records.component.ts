@@ -8,19 +8,18 @@ import { UserService } from '../services/user.service';
 })
 export class ImmigrationRecordsComponent {
 
-  constructor(private userService:UserService){  }
+  constructor(private userService:UserService){}
 
   id = ""
   user = null
 
-  async getUserData()
-  {
-    try{
+  async getUserData() {
+    try {
       const res = await this.userService.getUser(this.id).toPromise()
       this.user = res["Travel_History"]
       console.log(this.user)
     }
-    catch (error){
+    catch (error) {
       console.log(error)
     }
   }
