@@ -252,8 +252,8 @@ async def add_travel_history():
 @flaskApp.route('/travel_history', methods=['GET'])
 async def get_travel_history():
     try:
-        if request.args.get('id') == None:
-            return jsonify({"Message": "Passport ID missing!"}), 400
+        if request.args.get('id') == None or request.args.get('id') == "":
+            return jsonify({"error": "Passport ID missing!"}), 400
 
         # Get The Results
         user = User()

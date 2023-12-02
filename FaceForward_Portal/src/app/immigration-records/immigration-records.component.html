@@ -1,4 +1,32 @@
-<p>immigration-records works!</p>
-
-<input type="text" [(ngModel)] = "id"> Passport Number <br>
-<button (click)="getUserData()">Search</button>
+<app-nav-bar></app-nav-bar>
+<body [ngStyle]="{ 'background-image':  'url(assets/bg.jpg)' } ">
+    <div class="content">
+        <div *ngIf="!showRecord" class="container" [ngClass]="{'fade-in': !showRecord}">
+            <h2 style="margin-bottom: 20px; color: white;">Immigration <br> Records</h2>
+            <input type="text" [(ngModel)]="passportID" placeholder="Enter Passport Number" (keyup.enter)="getUserData()">
+            <button (click)="getUserData()">Submit</button>
+        </div>
+        <div *ngIf="showRecord"  class="records" [ngClass]="{'fade-in': showRecord}">
+            <h2 style="margin-bottom: 20px; color: white;">Travel Records</h2>
+            <table class="user-records-table">
+                <thead>
+                    <tr>
+                        <th>Index</th>
+                        <th>Airport</th>
+                        <th>Date</th>
+                        <th>Time</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let record of userRecords; let i = index" class="user-record">
+                        <td>{{ i + 1 }}</td>
+                        <td>{{ record.Airport }}</td>
+                        <td>{{ record.Date }}</td>
+                        <td>{{ record.Time }}</td>
+                    </tr>
+                </tbody>
+            </table>
+            <button (click)="goBack()">Back</button>
+        </div>
+    </div>
+</body>
