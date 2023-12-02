@@ -8,6 +8,7 @@ from io import BytesIO
 from HelperFiles import flaskApp
 from HelperFiles.models import User
 from HelperFiles.recognition_module import detect_matching_face
+from datetime import datetime
 
 #Cross-origin resource sharing (CORS) is required for sharing resources between multiple origins. In this case Backend <-> Frontend
 CORS(flaskApp)
@@ -20,9 +21,6 @@ def create_user():
         # Check if the request is empty
         if 'data' not in request.form:
             return jsonify({'error': 'Request is empty'}), 400
-        
-        if 'photo' not in request.files:
-            return jsonify({'error': 'Photo missing'}), 400
 
         # Defining the required fields
         required_fields = [
@@ -42,7 +40,6 @@ def create_user():
 
         # Retrieving the Data from Request
         data = json.loads(request.form['data'])
-        picbinary = bson.Binary(request.files['photo'].read())
 
         # Check if the JSON request contains the required fields
         for field in required_fields:
@@ -51,8 +48,13 @@ def create_user():
             
         # Check if any field is NULL
         for k,v in data.items():
-            if v == None:
+            if v == None or v == "":
                 return jsonify({'error': f'Null field: {k}'}), 400
+            
+        if 'photo' not in request.files:
+            return jsonify({'error': 'Photo missing'}), 400
+        
+        picbinary = bson.Binary(request.files['photo'].read())
 
         user = User()  
 
@@ -65,6 +67,7 @@ def create_user():
         # If all good, Add extra fields and Create user and successfull message
         data['Travel_History'] = []
         data['Face'] = picbinary
+        data['isVerified'] = False
 
         user.create_user(data)
         return jsonify({'message': 'User added successfully'}), 200
@@ -74,7 +77,7 @@ def create_user():
         return jsonify({'error': str(e)}), 500
 
 
-# API to get all the users
+# API to get all the verified users
 # The Face photo return will be in Base64 format
 @flaskApp.route('/user', methods=['GET'])
 async def get_user():
@@ -85,6 +88,24 @@ async def get_user():
         # Check if Passport ID doesn't exist
         if user_data==[]:
             return jsonify({'error': 'Invalid Passport ID'}), 400
+        
+        # Convert BSON Object to Base64 to return as JSON
+        for i in range(len(user_data)):
+            user_data[i]['Face'] = base64.b64encode(user_data[i]['Face']).decode('utf-8')
+
+        return jsonify({'users': user_data})
+
+    except Exception as e:
+        # Handle any exceptions that may occur
+        return jsonify({'error': str(e)}), 500
+    
+# API to get all the unverified users
+# The Face photo return will be in Base64 format
+@flaskApp.route('/pending_requests', methods=['GET'])
+async def get_unverified_user():
+    try:
+        user = User()
+        user_data = await asyncio.to_thread(user.get_unverified_user)
         
         # Convert BSON Object to Base64 to return as JSON
         for i in range(len(user_data)):
@@ -120,6 +141,50 @@ async def get_user_face():
         # Handle any exceptions that may occur
         return jsonify({'error': str(e)}), 500
     
+# API to reject and delete user regestration request based on Passport ID
+@flaskApp.route('/reject_registration', methods=['DELETE'])
+async def reject_user():
+    try:
+        passport_id = request.args.get('id')
+
+        # Check if Passport ID is provided
+        if not passport_id:
+            return jsonify({'error': 'Passport ID is required for deletion.'}), 400
+        
+        user = User()
+        result = await asyncio.to_thread(user.delete_user, passport_id)
+
+        if result == 0:
+            return jsonify({'message': 'No such User found'}), 400
+        
+        return jsonify({'message': 'Request Rejected successfully'}), 200
+
+    except Exception as e:
+        # Handle any exceptions that may occur
+        return jsonify({'error': str(e)}), 500
+    
+# API to accept user regestration request based on Passport ID
+@flaskApp.route('/accept_registration', methods=['POST'])
+async def accept_user():
+    try:
+        passport_id = request.args.get('id')
+
+        # Check if Passport ID is provided
+        if not passport_id:
+            return jsonify({'error': 'Passport ID is required for deletion.'}), 400
+        
+        user = User()
+        result = await asyncio.to_thread(user.verify_user, passport_id)
+
+        if result == 0:
+            return jsonify({'message': 'No such User found'}), 400
+        
+        return jsonify({'message': 'Request Accepted successfully'}), 200
+
+    except Exception as e:
+        # Handle any exceptions that may occur
+        return jsonify({'error': str(e)}), 500
+    
 # API To Verify USER for Immigration
 @flaskApp.route('/verify_user', methods=['GET'])
 async def user_verification():
@@ -149,27 +214,32 @@ async def user_verification():
     
 # API to add travel history
 @flaskApp.route('/add_travel_history', methods=['POST'])
-def add_travel_history():
+async def add_travel_history():
     try:
         data = request.get_json()
         passport_no = data["Passport_No"]
         airport = data["Airport"]
-        date = data["Date"]
-        time = data["Time"]
 
         # Check if the JSON request contains the required fields
-        if not all([airport, date, time, passport_no]):
+        if not all([airport, passport_no]):
             return jsonify({"error": "Missing required fields"}), 400
 
         # Create the travel history entry
+        current_datetime = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         travel_entry = {
             "Airport": airport,
-            "Date": date,
-            "Time": time
+            "Date": current_datetime.split()[0],
+            "Time": current_datetime.split()[1]
         }
 
-        # Append the travel history entry to the user's record
         user = User()
+        user_data = await asyncio.to_thread(user.get_user, passport_no)
+        
+        # Check if Passport ID doesn't exist
+        if user_data==[]:
+            return jsonify({'error': 'Invalid Passport ID'}), 400
+        
+        # Append the travel history entry to the user's record
         user.update_travel_history(passport_no, travel_entry)
 
         return jsonify({"message": "Travel history entry added successfully"}), 200
@@ -182,13 +252,12 @@ def add_travel_history():
 @flaskApp.route('/travel_history', methods=['GET'])
 async def get_travel_history():
     try:
-        if request.args.get('id') == None:
-            return jsonify({"Message": "Passport ID missing!"}), 400
+        if request.args.get('id') == None or request.args.get('id') == "":
+            return jsonify({"error": "Passport ID missing!"}), 400
 
         # Get The Results
         user = User()
         user_data = await asyncio.to_thread(user.get_travel_history, request.args.get('id'))
-        print(user_data)
 
         # Check if Passport ID doesn't exist
         if user_data==[]:

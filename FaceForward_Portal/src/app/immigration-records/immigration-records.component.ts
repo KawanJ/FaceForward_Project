@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { UserService } from '../services/user.service';
+import { ToastrService } from 'ngx-toastr';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-immigration-records',
@@ -8,20 +10,33 @@ import { UserService } from '../services/user.service';
 })
 export class ImmigrationRecordsComponent {
 
-  constructor(private userService:UserService){  }
+  constructor(private toastr: ToastrService, private userService:UserService){}
 
-  id = ""
-  user = null
+  passportID = "";
+  userRecords = null;
+  showRecord: boolean = false;
 
-  async getUserData()
-  {
-    try{
-      const res = await this.userService.getUser(this.id).toPromise()
-      this.user = res.users[0]
-      console.log(this.user)
+  async getUserData() {
+    try {
+      const res = await this.userService.getUser(this.passportID).toPromise();
+      if(res["Travel_History"].length == 0) {
+        this.toastr.warning('Travel Records Empty');
+      }
+      this.userRecords = res["Travel_History"].reverse();
+      this.showRecord = true;
+      this.toastr.success(':D', 'Data Fetched Successfully!!');
     }
-    catch (error){
+    catch (error) {
+      if(error instanceof HttpErrorResponse) {
+        this.toastr.error('Please Try again', error.error.error);
+      }
       console.log(error)
     }
+  }
+
+  goBack() {
+    this.showRecord = false;
+    this.passportID = "";
+    this.userRecords = null;
   }
 }

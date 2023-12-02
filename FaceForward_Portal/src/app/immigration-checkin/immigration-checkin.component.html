@@ -1,4 +1,13 @@
-<p>immigration-checkin works!</p>
-
-<input type="text" [(ngModel)] = "id"> Passport Number <br>
-<button (click)="verifyUser()">Verify</button>
+<app-nav-bar></app-nav-bar>
+<body [ngStyle]="{ 'background-image':  'url(assets/bg.jpg)' } ">
+    <div class="content" [ngStyle]="{ 'background-color': alertColor }" [ngClass]="{'grayed-out': isVerifying}">
+        <div *ngIf="!showAlert" class="container">
+            <h2 style="margin-bottom: 20px; color: white;">Immigration <br> Verification</h2>
+            <input type="text" [(ngModel)]="id" placeholder="Enter Passport Number" (keyup.enter)="verifyUser()">
+            <button (click)="verifyUser()">Verify</button>
+        </div>
+        <div *ngIf="showAlert" class="icon">
+            <img src="{{ verified ? 'assets/verification_success.png' : 'assets/verification_failure.png' }}" class="alert-image" [@scaleAnimation]="showAlert ? 'visible' : 'hidden'">
+        </div>
+    </div>
+</body>
