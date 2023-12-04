@@ -1,19 +1,22 @@
-<p>register-user works!</p>
+<app-nav-bar></app-nav-bar>
 <body>
-<!--                   binding it with   passport number in user       -->
-    <input type="text" [(ngModel)] = "user.Passport_No"> Passport Number <br>
-    <input type="text" [(ngModel)] = "user.Type"> Type of Passport <br>
-    <input type="text" [(ngModel)] = "user.Country_Code"> Country Code <br>
-    <input type="text" [(ngModel)] = "user.Given_Name"> Given Name <br>
-    <input type="text" [(ngModel)] = "user.Surname"> Surname <br>
-    <input type="text" [(ngModel)] = "user.Sex"> Sex <br>
-    <input type="text" [(ngModel)] = "user.Nationality"> Nationality <br>
-    <input type="text" [(ngModel)] = "user.Date_of_Birth"> Date of Birth <br>
-    <input type="text" [(ngModel)] = "user.Place_of_Birth"> Place of Birth <br>
-    <input type="text" [(ngModel)] = "user.Date_of_Issue"> Date of Issue <br>
-    <input type="text" [(ngModel)] = "user.Date_of_Expiration"> Date of Expiration <br>
-    <input type="text" [(ngModel)] = "user.Issuing_Authority"> Issuing Authority <br>
-    <input type="file" (change)="onFileSelected($event)">
-    <button  (click) = "register()"> Register </button>
+    <div class="main">
+        <div class="middle_box">
+            <input class="passportno" type="text" [(ngModel)] = "user.Passport_No" placeholder="Enter Passport Number"> Passport Number <br>
+            <input class="passportno" type="text" [(ngModel)] = "user.Type"> Type of Passport <br>
+            <input class="passportno" type="text" [(ngModel)] = "user.Country_Code"> Country Code <br>
+            <input class="passportno" type="text" [(ngModel)] = "user.Given_Name"> Given Name <br>
+            <input class="passportno" type="text" [(ngModel)] = "user.Surname"> Surname <br>
+            <input class="passportno" type="text" [(ngModel)] = "user.Sex"> Sex <br>
+            <input class="passportno" type="text" [(ngModel)] = "user.Nationality"> Nationality <br>
+            <input class="passportno" type="text" [(ngModel)] = "user.Date_of_Birth"> Date of Birth <br>
+            <input class="passportno" type="text" [(ngModel)] = "user.Place_of_Birth"> Place of Birth <br>
+            <input class="passportno" type="text" [(ngModel)] = "user.Date_of_Issue"> Date of Issue <br>
+            Date of Expiration <input class="passportno" type="text" [(ngModel)] = "user.Date_of_Expiration"> <br>
+            Issuing Authority <input class="passportno" type="text" [(ngModel)] = "user.Issuing_Authority"> <br>
+            <input type="file" (change)="onFileSelected($event)">
+            <button class="passportno" (click) = "register()"> Register </button>
+        </div>
+    </div>
 
 </body>
