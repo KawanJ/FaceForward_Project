@@ -1,0 +1,115 @@
+body {
+    margin: 0;
+    height: 91.3vh;
+    overflow: hidden;
+    background-image: url(../../assets/AdobeStock_301334523_Preview.jpeg);
+    background-size: cover;
+}
+
+.content {
+    margin: 0;
+    height: 93.3vh;
+    /* width: 100vw; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.5s ease-in-out;
+}
+  
+.container {
+    background: linear-gradient(320deg, #2c82bf, rgb(180, 209, 229));
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+    max-width: 400px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+  
+input {
+    width: calc(100% - 22px);
+    margin-bottom: 15px;
+    padding: 10px;
+    border: 1px solid #ccc; 
+    border-radius: 5px; 
+    font-size: 14px;
+}
+  
+.container button {
+    background-color: #5bce5d;
+    width: 100%;
+    border-radius: 10px;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    padding: 12px; 
+    font-size: 16px;
+}
+
+button:hover {
+    background-color: #4caf50; /* Darker color on hover */
+}
+
+button:active {
+    background-color: #419e41; /* Even darker color on click */
+}
+
+.records{
+    width: 100vh;
+}
+
+.records button {
+    background-color: #5bce5d;
+    border-radius: 10px;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    margin-top: 10px;
+    padding: 10px; 
+    font-size: 12px;
+}
+
+.user-records-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.user-record {
+    background-color: #ffffff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease-in-out;
+}
+
+.user-record:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.user-records-table th {
+    padding: 8px;
+    font-size: 18px;
+    text-align: center;
+    border: 1px solid #dddddd;
+    background-color: #060147;
+    color: #fff;
+}
+
+.user-records-table td {
+    padding: 8px;
+    font-size: 14px;
+    text-align: center;
+    border: 1px solid #dddddd;
+}
+
+.fade-in {
+    opacity: 0;
+    animation: fadeIn 1s ease-in forwards;
+}
+  
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}

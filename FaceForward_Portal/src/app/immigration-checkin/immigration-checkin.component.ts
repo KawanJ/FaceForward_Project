@@ -1,10 +1,9 @@
-import { Component,ViewEncapsulation  } from '@angular/core';
+import { Component } from '@angular/core';
 import { UserService } from '../services/user.service';
 import { ToastrService } from 'ngx-toastr';
 import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
-  // encapsulation: ViewEncapsulation.None,
   selector: 'app-immigration-checkin',
   templateUrl: './immigration-checkin.component.html',
   styleUrls: ['./immigration-checkin.component.css']
