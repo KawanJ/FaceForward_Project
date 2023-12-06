@@ -86,6 +86,7 @@ async def get_user():
         user_data = await asyncio.to_thread(user.get_user, request.args.get('id'))
         
         # Check if Passport ID doesn't exist
+        
         if user_data==[]:
             return jsonify({'error': 'Invalid Passport ID'}), 400
         

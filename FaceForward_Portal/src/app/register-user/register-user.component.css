@@ -1,15 +1,13 @@
 body{
     /*background-color: rgb(175,203,200);*/
-    background-image: linear-gradient(to left, rgb(45, 115, 143), rgb(113, 150, 146), rgb(45, 115, 143));
+    background-image: url(../../assets/AdobeStock_301334523_Preview.jpeg);
+    background-size: cover;
     opacity: 80%;
     height: 91.3vh;
 }
 
 .main{
-    margin-top: auto;
-    margin-bottom: auto;
-    margin-left: auto;
-    margin-right: auto;
+    margin: auto;
     text-align: center;
     line-height: 40px;
     padding-top: 25px;
@@ -21,22 +19,25 @@ body{
     width:350px;
     margin:auto;
     text-align: left;
-    padding-left: 60px;
+    padding-left: 38px;
 }
 
 ::-webkit-file-upload-button{
      background-color: rgb(17, 76, 94);
+     color: white;
+     text-align: center;
+     font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Verdana, sans-serif;
   }
 
 .passportno{
     background-color:rgb(17, 76, 94);
+    color: white;
+    text-align: center;
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Verdana, sans-serif;
 }
 
 .type{
-    margin-top: auto;
-    margin-bottom: auto;
-    margin-left: auto;
-    margin-right: auto;
+    margin: auto;
     text-align: center;  
     background-color:rgb(17, 76, 94); 
 }
@@ -44,5 +45,49 @@ body{
 ::placeholder{
     color: white;
     text-align: center;
-    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Verdana, sans-serif;
+}
+
+:focus::placeholder{
+    color: transparent;
+}
+
+.letterspacing{
+    padding-left: 30px;
+}
+.letterspacing1{
+    padding-left: 34px;
+}
+.letterspacing2{
+    padding-left: 51px;
+}
+.letterspacing3{
+    padding-left: 59px;
+}
+.letterspacing4{
+    padding-left: 84px;
+}
+.letterspacing5{
+    padding-left: 117px;
+}
+.letterspacing6{
+    padding-left: 69px;
+}
+.letterspacing7{
+    padding-left: 57px;
+}
+.letterspacing8{
+    padding-left: 53px;
+}
+.letterspacing9{
+    padding-left: 58px;
+}
+.letterspacing10{
+    padding-left: 23px;
+}
+.letterspacing11{
+    padding-left: 30px;
+}
+.letterspacing12{
+    padding-left: 2px;
 }

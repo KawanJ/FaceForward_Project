@@ -1,7 +1,9 @@
 body {
     margin: 0;
-    height: 93.3vh;
+    height: 91.3vh;
     overflow: hidden;
+    background-image: url(../../assets/AdobeStock_301334523_Preview.jpeg);
+    background-size: cover;
 }
 
 .content {

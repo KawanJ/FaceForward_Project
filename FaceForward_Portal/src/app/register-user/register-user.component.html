@@ -2,20 +2,20 @@
 <body>
     <div class="main">
         <div class="middle_box">
-            <input class="passportno" type="text" [(ngModel)] = "user.Passport_No" placeholder="Enter Passport Number"> Passport Number <br>
-            <input class="passportno" type="text" [(ngModel)] = "user.Type"> Type of Passport <br>
-            <input class="passportno" type="text" [(ngModel)] = "user.Country_Code"> Country Code <br>
-            <input class="passportno" type="text" [(ngModel)] = "user.Given_Name"> Given Name <br>
-            <input class="passportno" type="text" [(ngModel)] = "user.Surname"> Surname <br>
-            <input class="passportno" type="text" [(ngModel)] = "user.Sex"> Sex <br>
-            <input class="passportno" type="text" [(ngModel)] = "user.Nationality"> Nationality <br>
-            <input class="passportno" type="text" [(ngModel)] = "user.Date_of_Birth"> Date of Birth <br>
-            <input class="passportno" type="text" [(ngModel)] = "user.Place_of_Birth"> Place of Birth <br>
-            <input class="passportno" type="text" [(ngModel)] = "user.Date_of_Issue"> Date of Issue <br>
-            Date of Expiration <input class="passportno" type="text" [(ngModel)] = "user.Date_of_Expiration"> <br>
-            Issuing Authority <input class="passportno" type="text" [(ngModel)] = "user.Issuing_Authority"> <br>
+            Passport Number <span class="letterspacing"> <input class="passportno" type="text" [(ngModel)] = "user.Passport_No" placeholder="Enter Passport Number"> <br> </span>
+            Type of Passport <span class="letterspacing1"> <input class="passportno" type="text" [(ngModel)] = "user.Type" placeholder="Enter Type of Passport"> <br> </span>
+            Country Code <span class="letterspacing2"> <input class="passportno" type="text" [(ngModel)] = "user.Country_Code" placeholder="Enter Country Code"> <br> </span>
+            Given Name <span class="letterspacing3"> <input class="passportno" type="text" [(ngModel)] = "user.Given_Name" placeholder="Enter Given Name"> <br> </span>
+            Surname <span class="letterspacing4"> <input class="passportno" type="text" [(ngModel)] = "user.Surname" placeholder="Enter Surname"> <br> </span>
+            Sex <span class="letterspacing5"> <input class="passportno" type="text" [(ngModel)] = "user.Sex" placeholder="Enter Sex"> <br> </span>
+            Nationality <span class="letterspacing6"> <input class="passportno" type="text" [(ngModel)] = "user.Nationality" placeholder="Enter Nationality"> <br> </span>
+            Date of Birth <span class="letterspacing7"> <input class="passportno" type="text" [(ngModel)] = "user.Date_of_Birth" placeholder="Enter Date of Birth"> <br> </span>
+            Place of Birth <span class="letterspacing8"> <input class="passportno" type="text" [(ngModel)] = "user.Place_of_Birth" placeholder="Enter Place of Birth"> <br> </span>
+            Date of Issue <span class="letterspacing9"> <input class="passportno" type="text" [(ngModel)] = "user.Date_of_Issue" placeholder="Enter Date of Issue"> <br> </span>
+            Date of Expiration <span class="letterspacing10"> <input class="passportno" type="text" [(ngModel)] = "user.Date_of_Expiration" placeholder="Enter Date of Expiration"> <br> </span>
+            Issuing Authority <span class="letterspacing11"> <input class="passportno" type="text" [(ngModel)] = "user.Issuing_Authority" placeholder="Enter Issuing Authority"> <br> </span>
             <input type="file" (change)="onFileSelected($event)">
-            <button class="passportno" (click) = "register()"> Register </button>
+            <span class="letterspacing12"> <button class="passportno" (click) = "register()"> Register </button> </span>
         </div>
     </div>
 
