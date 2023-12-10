@@ -27,7 +27,7 @@ export class ImmigrationCheckinComponent {
       this.verified = res.status;
   
       // Set alert color based on verification status
-      this.alertColor = this.verified ? 'green' : '#f28080';
+      this.alertColor = this.verified ? 'green' : '#bf0202';
 
       // Update Travel History
       if(this.verified == true) {

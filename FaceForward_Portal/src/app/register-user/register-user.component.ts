@@ -14,12 +14,12 @@ export class RegisterUserComponent {
 
   user = {
     Passport_No: null,
-    Type: null,
-    Country_Code: null,
+    Type: '',
+    Country_Code: '',
     Given_Name: null,
     Surname: null,
-    Sex: null,
-    Nationality: null,
+    Sex: '',
+    Nationality: '',
     Date_of_Birth: null,
     Place_of_Birth: null,
     Date_of_Issue: null,
@@ -44,17 +44,18 @@ export class RegisterUserComponent {
       this.toastr.success('Registration Successful');
       
       this.user.Passport_No=null;
-      this.user.Type=null;
-      this.user.Country_Code=null;
+      this.user.Type='';
+      this.user.Country_Code='';
       this.user.Given_Name=null;
       this.user.Surname=null;
-      this.user.Sex=null;
-      this.user.Nationality=null;
+      this.user.Sex='';
+      this.user.Nationality='';
       this.user.Date_of_Birth=null;
       this.user.Place_of_Birth=null;
       this.user.Date_of_Issue=null;
       this.user.Date_of_Expiration=null;
       this.user.Issuing_Authority=null;
+      this.image={} as File;
       //print the response (console.log is print in javascript)
     }
     catch (error){
@@ -65,3 +66,4 @@ export class RegisterUserComponent {
     }
   }
 }
+

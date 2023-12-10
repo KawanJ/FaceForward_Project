@@ -50,7 +50,7 @@ def create_user():
         for k,v in data.items():
             if v == None or v == "":
                 return jsonify({'error': f'Null field: {k}'}), 400
-            
+            data[k] = data[k].upper()
         if 'photo' not in request.files:
             return jsonify({'error': 'Photo missing'}), 400
         
