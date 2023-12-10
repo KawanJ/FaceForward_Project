@@ -1,1 +1,56 @@
 <app-nav-bar></app-nav-bar>
+<body> 
+    <div class="requests" *ngIf="!requestEmpty">
+        <div *ngFor="let user of users; let i = index" class="container">
+            <div class="first-row">
+                <div class="photo-column">
+                    <img [src]="'data:image/png;base64,' + user.Face" alt="Photo">
+                </div>
+                <div class="data-column">
+                    <!-- Row 1 -->
+                    <div class="data-row">
+                        <div class="data-cell"><span>Type:</span> <span class="bold-underline">{{ user.Type }}</span></div>
+                        <div class="data-cell"><span>Code:</span> <span class="bold-underline">{{ user.Country_Code }}</span></div>
+                        <div class="data-cell"><span>Nationality:</span><span class="bold-underline">{{user.Nationality}}</span></div>
+                        <div class="data-cell"><span>Passport No:</span> <span class="bold-underline">{{ user.Passport_No }}</span></div>
+                    </div>
+                    <!-- Row 2 -->
+                    <div class="data-row">
+                        <div class="data-cell"><span>Surname:</span> <span class="bold-underline">{{ user.Surname }}</span></div>
+                    </div>
+                    <!-- Row 3 -->
+                    <div class="data-row">
+                        <div class="data-cell"><span>Given Name:</span> <span class="bold-underline">{{ user.Given_Name }}</span></div>
+                    </div>
+                    <!-- Row 4 -->
+                    <div class="data-row">
+                        <div class="data-cell"><span>Date of Birth:</span> <span class="bold-underline">{{ user.Date_of_Birth }}</span></div>
+                        <div class="data-cell"><span>Sex:</span> <span class="bold-underline">{{ user.Sex }}</span></div>
+                    </div>
+                </div>
+            </div>
+            <div class="second-row">
+                <!-- Row 5 -->
+                <div class="data-row">
+                    <div class="data-cell"><span>Place of Birth:</span> <span class="bold-underline">{{ user.Place_of_Birth }}</span></div>
+                </div>
+                <!-- Row 6 -->
+                <div class="data-row">
+                    <div class="data-cell"><span>Issuing Authority:</span> <span class="bold-underline">{{ user.Issuing_Authority }}</span></div>
+                </div>
+                <!-- Row 7 -->
+                <div class="data-row">
+                    <div class="data-cell"><span>Date of Issue:</span> <span class="bold-underline">{{ user.Date_of_Issue }}</span></div>
+                    <div class="data-cell"><span>Date of Expiration:</span> <span class="bold-underline">{{ user.Date_of_Expiration }}</span></div>
+                </div>
+                <div class="button-row">
+                    <button class="accept-button" (click)="acceptRequest(i)">Accept</button>
+                    <button class="reject-button" (click)="rejectRequest(i)">Reject</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="empty-request" *ngIf="requestEmpty">
+        <h1>No Requests Currently</h1>
+    </div>
+</body>

@@ -5,6 +5,11 @@
     background-position: top;
   }
 
+  h1{
+    font-size:xx-large;
+    font-family:inherit;
+  }
+
   .nav-links{
     margin-bottom: 20%;
   }

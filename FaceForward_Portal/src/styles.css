@@ -3,3 +3,13 @@
 body, html {
     margin: 0 !important;
 }
+#toast-container > .toast-success {
+    background-color: rgb(37, 107, 69);
+    color: rgb(230, 235, 231);
+  }
+
+#toast-container > .toastr-error {
+    
+    background-color: rgb(19, 19, 19);
+    color: rgb(230, 235, 231);
+} 

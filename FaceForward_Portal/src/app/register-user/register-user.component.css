@@ -29,11 +29,74 @@ body{
      font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Verdana, sans-serif;
   }
 
+select{
+    background-color: rgb(17, 76, 94);
+    color:white;
+    text-align: center;
+}
+
+.select_type{
+    color:white;
+    background-color: rgb(17, 76, 94);
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Verdana, sans-serif;
+    width:181px;
+    margin-left: 34px;
+    height:21px;
+    border:rgba(3, 12, 15, 0.4) solid;
+    border-width: 2px;
+}
+.select_code{
+    color:white;
+    background-color: rgb(17, 76, 94);
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Verdana, sans-serif;
+    width:181px;
+    margin-left: 51px;
+    height:21px;
+    border:rgba(3, 12, 15, 0.4) solid;
+    border-width: 2px;
+}
+
+.select_sex{
+    color:white;
+    background-color: rgb(17, 76, 94);
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Verdana, sans-serif;
+    width:181px;
+    margin-left: 117px;
+    height:21px;
+    border:rgba(3, 12, 15, 0.4) solid;
+    border-width: 2px;
+}
+
+.select_nationality{
+    color:white;
+    background-color: rgb(17, 76, 94);
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Verdana, sans-serif;
+    width:181px;
+    margin-left: 69px;
+    height:21px;
+    border:rgba(3, 12, 15, 0.4) solid;
+    border-width: 2px;
+}
+
 .passportno{
     background-color:rgb(17, 76, 94);
     color: white;
     text-align: center;
     font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Verdana, sans-serif;
+    border:rgba(3, 12, 15, 0.4) solid;
+    border-width: 2px;
+}
+
+.calender{
+    color:white;
+    background-color:rgb(17, 76, 94);
+    width: 176px;
+    text-align: center;
+    text-transform:uppercase;
+    height:21px;
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Verdana, sans-serif;
+    border:rgba(3, 12, 15, 0.4) solid;
+    border-width: 2px;
 }
 
 .type{

@@ -24,7 +24,7 @@ export class ImmigrationRecordsComponent {
       }
       this.userRecords = res["Travel_History"].reverse();
       this.showRecord = true;
-      this.toastr.success(':D', 'Data Fetched Successfully!!');
+      this.toastr.success('Data Fetched Successfully');
     }
     catch (error) {
       if(error instanceof HttpErrorResponse) {

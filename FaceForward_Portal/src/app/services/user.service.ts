@@ -7,7 +7,15 @@ import { HttpClient } from '@angular/common/http'; //library (class) for using h
   providedIn: 'root'
 })
 export class UserService {
-
+  acceptRegisterRequest(id:string){
+    return this.http.post<any>(this.acceptRegisterRequestAPI + id, '');
+  }
+  
+  rejecttRegisterRequest(id:string){
+    return this.http.delete<any>(this.rejectRegisterRequestAPI + id);
+  }
+  private acceptRegisterRequestAPI = "http://127.0.0.1:5000/accept_registration?id="
+  private rejectRegisterRequestAPI = "http://127.0.0.1:5000/reject_registration?id=" 
   private registerUserAPI = "http://127.0.0.1:5000/add_user"
   private getUserAPI = "http://127.0.0.1:5000/travel_history?id="
   private getUnverifiedUserAPI = "http://127.0.0.1:5000/pending_requests"
